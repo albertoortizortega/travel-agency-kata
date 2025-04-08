@@ -25,3 +25,14 @@ jobs:
  
       - name: Push Docker Image to Docker Hub
         run: docker push albertoortizortega/travel-agency-kata:latest
+        
+  deploy:
+    environment: poc
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Render
+        uses: renderapi/render-deploy@v1
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
