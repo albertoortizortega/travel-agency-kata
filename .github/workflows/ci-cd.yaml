@@ -1,0 +1,39 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for mvnw
+        run: chmod +x mvnw
+
+      - name: Code Quality Checks
+        run: ./mvnw checkstyle:check pmd:check spotless:check test
+
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/travel-agency-kata:${{ github.sha }} .
+
+      - name: Log in to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/travel-agency-kata:${{ github.sha }}
+
+      - name: Deploy to Render
+        uses: renderapi/render-deploy@v1
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
