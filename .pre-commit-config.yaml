@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/diffplug/spotless
+    rev: '2.44.0' # Utiliza la última versión estable
+    hooks:
+      - id: spotless-maven
+        name: Spotless Maven
+        entry: ./mvnw spotless:apply
+        language: system
+        types: [java]
+        pass_filenames: false
+        require_serial: true
+  - repo: local
+    hooks:
+      - id: maven-tests
+        name: Ejecutar Pruebas de Maven
+        entry: ./mvnw test
+        language: system
+        pass_filenames: false
