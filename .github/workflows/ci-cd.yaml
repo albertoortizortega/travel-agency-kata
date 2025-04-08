@@ -16,7 +16,7 @@ jobs:
         run: mvn spotless:apply
 
       - name: Run Maven
-        run: mvn clean package -DskipTests checkstyle:check test
+        run: mvn spotless:check
 
       - name: Run Maven
         run: mvn clean package -DskipTests checkstyle:check test
