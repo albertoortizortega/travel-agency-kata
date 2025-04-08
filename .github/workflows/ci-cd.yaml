@@ -11,7 +11,10 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-          
+
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+      
       - name: Format code
         run: mvn spotless:apply
 
