@@ -30,10 +30,6 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: Push Docker Image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/travel-agency-kata:${{ github.sha }}
-
-      - name: Deploy to Render
-        uses: renderapi/render-deploy@v1
-        with:
-          service-id: ${{ secrets.RENDER_SERVICE_ID }}
-          api-key: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/travel-agency-kata:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/travel-agency-kata:latest
