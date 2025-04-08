@@ -18,7 +18,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Code Quality Checks
-        run: ./mvnw checkstyle:check pmd:check spotless:check test
+        run: mvn checkstyle:check pmd:check spotless:check test
 
       - name: Build Docker Image
         run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/travel-agency-kata:${{ github.sha }} .
