@@ -16,6 +16,8 @@ jobs:
           mvn spotless:check
           mvn checkstyle:check
           mvn test
+      - name: Format code (auto-fix)
+        run: mvn spotless:apply
 
       - name: Build Docker Image
         run: docker build -t albertoortizortega/travel-agency-kata:latest .
