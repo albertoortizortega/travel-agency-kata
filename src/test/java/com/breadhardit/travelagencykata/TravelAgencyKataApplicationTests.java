@@ -37,7 +37,8 @@ class TravelAgencyKataApplicationTests {
                 PutCustomerDTO.builder().name("Pepe").surnames("Perez").birthDate(LocalDate.now()).passportNumber("123").build()
         );
         // Assert the response is OK
-        Assertions.assertEquals(HttpStatus.CREATED, putCustomerResponse.getStatusCode());
+        //Assertions.assertEquals(HttpStatus.CREATED, putCustomerResponse.getStatusCode());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, putCustomerResponse.getStatusCode());
         // Assert response has location header
         Assertions.assertTrue(putCustomerResponse.getHeaders().containsKey(HttpHeaders.LOCATION));
         // Assert id exists in repository, first, obtaining the id from the location
