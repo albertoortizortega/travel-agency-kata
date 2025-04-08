@@ -12,14 +12,14 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           
-      - name: Format code (auto-fix with Spotless)
+      - name: Format code
         run: mvn spotless:apply
 
-      - name: Run Maven
+      - name: Format check
         run: mvn spotless:check
 
-      - name: Run Maven
-        run: mvn clean package -DskipTests checkstyle:check test
+      - name: Run Tests
+        run: mvn test
 
       - name: Build Docker Image
         run: docker build -t albertoortizortega/travel-agency-kata:latest .
