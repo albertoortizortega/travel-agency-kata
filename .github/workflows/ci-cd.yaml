@@ -32,7 +32,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Render
-        uses: renderapi/render-deploy@v1
-        with:
-          service-id: ${{ secrets.RENDER_SERVICE_ID }}
-          api-key: ${{ secrets.RENDER_API_KEY }}
+        run: curl https://api.render.com/deploy/srv-cvqpfsp5pdvs738ttvjg?key=1oD2AOwaHWs
